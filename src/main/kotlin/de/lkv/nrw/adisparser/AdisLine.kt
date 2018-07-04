@@ -67,6 +67,7 @@ open class AdisLine internal constructor(line: String, type: LineType) {
         VN(LineType.VALUE),
         PO(LineType.PROPERTY),
         PN(LineType.PROPERTY),
+        PR(LineType.PROPERTY),
         QO(LineType.PROPERTY),
         QN(LineType.PROPERTY),
         QR(LineType.PROPERTY),
