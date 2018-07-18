@@ -4,7 +4,8 @@ open class AdisLine internal constructor(line: String, type: LineType) {
 
     companion object {
 
-        private var lastDefLine: AdisLine? = null
+        var defLine: AdisLine? = null
+        private set
 
         /**
          * Returns a probability of the line being an adis line
@@ -32,12 +33,12 @@ open class AdisLine internal constructor(line: String, type: LineType) {
             val cat = LineCategory.valueOf(line.substring(0, 2))
 
             if (cat.type == LineType.DEFINITION) {
-                lastDefLine = AdisDefinitionLine(line)
-                return lastDefLine
+                defLine = AdisDefinitionLine(line)
+                return defLine
             } else if (cat.type == LineType.VALUE) {
-                if (lastDefLine == null)
+                if (defLine == null)
                     throw IllegalArgumentException("A definition line is required before a value line can be parsed.")
-                return AdisValueLine(line, lastDefLine as AdisDefinitionLine)
+                return AdisValueLine(line, defLine as AdisDefinitionLine)
             } else if (cat.type == LineType.PROPERTY) {
                 return AdisPropertyLine(line)
             } else if (cat.type == LineType.COMMAND) {

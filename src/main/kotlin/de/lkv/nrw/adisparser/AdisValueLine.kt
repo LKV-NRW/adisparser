@@ -1,9 +1,8 @@
 package de.lkv.nrw.adisparser
 
-class AdisValueLine(line: String, val defLine: AdisDefinitionLine) : AdisLine(line, LineType.VALUE) {
+class AdisValueLine(line: String, defLine: AdisDefinitionLine) : AdisLine(line, LineType.VALUE) {
 
-    val items: LinkedHashMap<Int, Item>
-        get() = defLine.items
+    val items: LinkedHashMap<Int, Item> = linkedMapOf()
 
     init {
         try {
@@ -16,6 +15,10 @@ class AdisValueLine(line: String, val defLine: AdisDefinitionLine) : AdisLine(li
 
         if (line.length != defLine.getValueLength())
             throw IllegalArgumentException("Value line has an unexpected length.")
+
+        defLine.items.forEach {
+            items[it.key] = Item(item = it.value.item, length = it.value.length, resolution = it.value.resolution, value = null)
+        }
 
         var values = line.substring(8, line.length)
         for (item in items.values) {
