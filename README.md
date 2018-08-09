@@ -20,7 +20,7 @@ Add dependency via Gradle:
 compile(group: 'de.lkv.nrw', name: 'adisparser', version: '1.0.0')
 ```
 
-> Please note that this project is currently not available on any repository. To add it to you local repository download this project and 'mvn install' it to your local repository.
+> Please note that this project is currently not available on any repository. To add it to you local repository download this project and 'mvn install' it to your local repository or download the binaries from [here](https://github.com/LKV-NRW/adisparser/releases)
 
 ## How to use
 
