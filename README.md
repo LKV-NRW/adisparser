@@ -29,19 +29,22 @@ There are currently three ways of parsing adis data.
 ### Parse an adis file
 
 ```java
-LinkedList<AdisLine> returnedList = AdisParser.readFile(new File("anAdisFile.ads"));
+AdisParser parser = new AdisParser();
+LinkedList<AdisLine> returnedList = parser.readFile(new File("anAdisFile.ads"));
 ```
 
 or with encoding (default is 'ISO-8859-15')
 
 ```java
-LinkedList<AdisLine> returnedList = AdisParser.readFile(new File("myAdisFile.ads"), "UTF-8");
+AdisParser parser = new AdisParser();
+LinkedList<AdisLine> returnedList = parser.readFile(new File("myAdisFile.ads"), "UTF-8");
 ```
 
 ### Parse a list of adis lines
 
 ```java
-LinkedList<AdisLine> returnedList = AdisParser.readFile(myList);
+AdisParser parser = new AdisParser();
+LinkedList<AdisLine> returnedList = parser.readList(myList);
 ```
 
 > you'll want to make sure that the list is of an ordered manner.
@@ -49,7 +52,7 @@ LinkedList<AdisLine> returnedList = AdisParser.readFile(myList);
 ### Parse a single adis line at a time
 
 ```java
-AdisLine returnedLine = AdisLine.parse(myLine);
+AdisDefinitionLine returnedLine = AdisDefinitionLine.parse(myLine);
 ```
 
 > Parsing value lines by itself will cause an error since a value line must be followed by a definition line. So make sure to first parse a definition line.
