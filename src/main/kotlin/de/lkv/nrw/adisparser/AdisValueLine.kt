@@ -1,5 +1,7 @@
 package de.lkv.nrw.adisparser
 
+import de.lkv.nrw.adisparser.exceptions.ValueLineException
+
 class AdisValueLine(line: String, defLine: AdisDefinitionLine) : AdisLine(line, LineType.VALUE) {
 
     val items: LinkedHashMap<Int, Item> = linkedMapOf()
@@ -8,13 +10,13 @@ class AdisValueLine(line: String, defLine: AdisDefinitionLine) : AdisLine(line, 
         try {
             val entity = Integer.valueOf(line.substring(2, 8))
             if (entity != defLine.entity)
-                throw IllegalArgumentException("Line is not the same entity number as the given definition line: " + line.substring(2, 8))
+                throw ValueLineException("Line is not the same entity number as the given definition line: " + line.substring(2, 8))
         } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("Line appears to contain non-numerical symbols at position 2 to 8. Only numerical characters can be at those positions: " + line.substring(2, 8))
+            throw ValueLineException("Line appears to contain non-numerical symbols at position 2 to 8. Only numerical characters can be at those positions: " + line.substring(2, 8))
         }
 
         if (line.length != defLine.getValueLength())
-            throw IllegalArgumentException("Value line has an unexpected length.")
+            throw ValueLineException("Value line has an unexpected length.")
 
         defLine.items.forEach {
             items[it.key] = Item(item = it.value.item, length = it.value.length, resolution = it.value.resolution, value = null)

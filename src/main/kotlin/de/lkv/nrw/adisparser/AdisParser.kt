@@ -19,7 +19,7 @@ class AdisParser {
 
         val list = LinkedList<AdisLine>()
         for (line in file.readLines(Charset.forName(charset))) {
-            list.add(AdisLine.parse(line)!!)
+            list.add(AdisLine.parse(line))
         }
 
         return list
@@ -28,7 +28,7 @@ class AdisParser {
     fun readList(@NotNull lines: LinkedList<String>): LinkedList<AdisLine> {
         val list = LinkedList<AdisLine>()
         for (line in lines) {
-            list.add(AdisLine.parse(line)!!)
+            list.add(AdisLine.parse(line))
         }
 
         return list

@@ -1,5 +1,7 @@
 package de.lkv.nrw.adisparser
 
+import de.lkv.nrw.adisparser.exceptions.CommentLineException
+
 class AdisCommentLine(line: String) : AdisLine(line, LineType.COMMENT) {
 
     val comment: String
@@ -12,7 +14,7 @@ class AdisCommentLine(line: String) : AdisLine(line, LineType.COMMENT) {
             type = CommentType.ERROR
         else {
             type = CommentType.UNKNOWN
-            throw IllegalArgumentException("Unknown comment type. This should not have happened.")
+            throw CommentLineException("Unknown comment type. This should not have happened.")
         }
 
         comment = line.substring(2).trim()

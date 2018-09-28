@@ -11,13 +11,13 @@ Add dependency via Maven:
 <dependency>
     <groupId>de.lkv.nrw</groupId>
     <artifactId>adisparser</artifactId>
-    <version>1.2.1</version>
+    <version>${project.version}</version>
 </dependency>
 ```
 
 Add dependency via Gradle:
 ```java
-compile(group: 'de.lkv.nrw', name: 'adisparser', version: '1.2.1')
+compile(group: 'de.lkv.nrw', name: 'adisparser', version: '${project.version}')
 ```
 
 > Please note that this project is currently not available on any repository. To add it to you local repository download this project and 'mvn install' it to your local repository or download the binaries from [here](https://github.com/LKV-NRW/adisparser/releases)

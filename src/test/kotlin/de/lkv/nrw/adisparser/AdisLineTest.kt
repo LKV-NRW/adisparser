@@ -1,81 +1,88 @@
 package de.lkv.nrw.adisparser
 
+import de.lkv.nrw.adisparser.exceptions.*
 import org.junit.Test
 
 class AdisLineTest {
 
     @Test
     fun `not an adis line`() {
-        var l = AdisLine.parse("")
-        assert(l !is AdisLine)
-
-        l = AdisLine.parse(null.toString())
-        assert(l !is AdisLine)
-
-        l = AdisLine.parse("tn")
-        assert(l !is AdisLine)
+        try {
+            AdisLine.parse("")
+        } catch (ignore: LineCategoryUnknownException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("TNZN")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse(null.toString())
+        } catch (ignore: LineCategoryUnknownException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("DN123AAA00123456121")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("tn")
+        } catch (ignore: LineCategoryUnknownException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("DN12345600123AAA121")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("TNZN")
+        } catch (ignore: CommandLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("DN1234560012300012000123457")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("DN123AAA00123456121")
+        } catch (ignore: DefinitionLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("PO123AAA00123456120abcabcabcabc")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("DN12345600123AAA121")
+        } catch (ignore: DefinitionLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("PO12345600123AAA120abcabcabcabc")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("DN1234560012300012000123457")
+        } catch (ignore: DefinitionLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            l = AdisLine.parse("PO12345600123000120abcabcabcabc00123457010")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("PO123AAA00123456120abcabcabcabc")
+        } catch (ignore: PropertyLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            AdisLine.parse("DN1234560012345612000123457052")
-            l = AdisLine.parse("VN123457abcabcabcabc  123")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("PO12345600123AAA120abcabcabcabc")
+        } catch (ignore: PropertyLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
-            AdisLine.parse("DN1234560012345612000123457052")
-            l = AdisLine.parse("VN123AAAabcabcabcabc  123")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("PO12345600123000120abcabcabcabc00123457010")
+        } catch (ignore: PropertyLineException) {
+        } catch (ignore: Exception) { assert(false) }
 
         try {
             AdisLine.parse("DN1234560012345612000123457052")
-            l = AdisLine.parse("VN123456abcabcabcabc  123000")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+            AdisLine.parse("VN123457abcabcabcabc  123")
+        } catch (ignore: ValueLineException) {
+        } catch (ignore: Exception) { assert(false) }
+
+        try {
+            AdisLine.parse("DN1234560012345612000123457052")
+            AdisLine.parse("VN123AAAabcabcabcabc  123")
+        } catch (ignore: ValueLineException) {
+        } catch (ignore: Exception) { assert(false) }
+
+        try {
+            AdisLine.parse("DN1234560012345612000123457052")
+            AdisLine.parse("VN123456abcabcabcabc  123000")
+        } catch (ignore: ValueLineException) {
+        } catch (ignore: Exception) { assert(false) }
     }
 
     @Test
     fun `value but no definition`() {
-        var l: AdisLine? = null
-                try {
-            l = AdisLine.parse("VN123456abcabcabcabc  123000")
-        } catch (ignore: Exception) {}
-        assert(l !is AdisLine)
+        try {
+            AdisLine.parse("VN123456abcabcabcabc  123000")
+        } catch (ignore: Exception) {
+            assert(ignore !is DefinitionTypeMissingException)
+        }
     }
 
     @Test
