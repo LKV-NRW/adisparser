@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/${project.groupId}/${project.artifactId}/badge.svg)](https://maven-badges.herokuapp.com/maven-central/${project.groupId}/${project.artifactId})
+
 # AdisParser
 
 A parser to allow to read adis files with ease and consequently work with the data contained in the adis file.
@@ -9,18 +11,16 @@ This project can be used as a library in any java (or similar) project. To add i
 Add dependency via Maven:
 ```xml
 <dependency>
-    <groupId>de.lkv.nrw</groupId>
-    <artifactId>adisparser</artifactId>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
     <version>${project.version}</version>
 </dependency>
 ```
 
 Add dependency via Gradle:
 ```java
-compile(group: 'de.lkv.nrw', name: 'adisparser', version: '${project.version}')
+compile(group: '${project.groupId}', name: '${project.artifactId}', version: '${project.version}')
 ```
-
-> Please note that this project is currently not available on any repository. To add it to you local repository download this project and 'mvn install' it to your local repository or download the binaries from [here](https://github.com/LKV-NRW/adisparser/releases)
 
 ## How to use
 
