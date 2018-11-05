@@ -13,13 +13,13 @@ Add dependency via Maven:
 <dependency>
     <groupId>de.lkv-nrw</groupId>
     <artifactId>adisparser</artifactId>
-    <version>1.2.1</version>
+    <version>1.3.1-SNAPSHOT</version>
 </dependency>
 ```
 
 Add dependency via Gradle:
 ```java
-compile(group: 'de.lkv-nrw', name: 'adisparser', version: '1.2.1')
+compile(group: 'de.lkv-nrw', name: 'adisparser', version: '1.3.1-SNAPSHOT')
 ```
 
 ## How to use
