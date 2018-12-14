@@ -11,6 +11,7 @@ class AdisParser {
         private const val DEFAULT_CHARSET : String = "ISO-8859-15"
     }
 
+    @JvmOverloads
     fun readFile(@NotNull file: File, charset: String = DEFAULT_CHARSET): LinkedList<AdisLine> {
         if (!file.exists())
             throw NoSuchFileException(file, null, "The given file does not exist")

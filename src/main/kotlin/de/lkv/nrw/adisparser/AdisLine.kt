@@ -4,7 +4,7 @@ import de.lkv.nrw.adisparser.exceptions.DefinitionTypeMissingException
 import de.lkv.nrw.adisparser.exceptions.LineCategoryUnknownException
 import de.lkv.nrw.adisparser.exceptions.NoTypeAssignmentFoundException
 
-open class AdisLine internal constructor(line: String, type: LineType) {
+open class AdisLine internal constructor(private val line: String, type: LineType) {
 
     companion object {
 
@@ -14,6 +14,7 @@ open class AdisLine internal constructor(line: String, type: LineType) {
         /**
          * Returns a probability of the line being an adis line
          */
+        @JvmStatic
         fun isAdisLine(line: String) : Boolean {
             if (line.length < 2)
                 return false
@@ -33,6 +34,7 @@ open class AdisLine internal constructor(line: String, type: LineType) {
         @Throws(LineCategoryUnknownException::class,
                 DefinitionTypeMissingException::class,
                 NoTypeAssignmentFoundException::class)
+        @JvmStatic
         fun parse(line: String): AdisLine {
             if(!isAdisLine(line))
                 throw LineCategoryUnknownException("Not a valid or known ADIS-Line: '${line}'")
@@ -68,6 +70,8 @@ open class AdisLine internal constructor(line: String, type: LineType) {
         category = LineCategory.valueOf(sub)
     }
 
+    override fun toString() = line
+
     internal enum class LineCategory(internal var type: LineType) {
         DH(LineType.DEFINITION),
         VH(LineType.VALUE),
@@ -86,6 +90,7 @@ open class AdisLine internal constructor(line: String, type: LineType) {
         CF(LineType.COMMENT);
 
         companion object {
+            @JvmStatic
             fun valuesOf(type: LineType): List<LineCategory> {
                 return values().filter { it.type == type }
             }
